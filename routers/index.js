@@ -1,10 +1,10 @@
 const express = require("express")
 const router = express.Router()
-const movieDb = require("./model/movie")
+const movieDb = require("../model/movie")
 
 router.get("/api/movies" ,(req , res )=>{
-     movieDb.find({}, (error, data )=>{
-        res.send
+     movieDb.find({}, (err, data )=>{
+        res.send(data)
      })
 })
 
@@ -26,6 +26,7 @@ router.get("/api/movies/:id" , (req, res )=>{
       res.send(data)
    })
 })
+
 router.put("/api/movies/:id" , (req , res)=>{
 const {title, category, country, director, imdb_score,   year}=req.body
 
@@ -38,11 +39,55 @@ const db = {
    year: year
 }
 
+
    movieDb.findByIdAndUpdate(req.params.id, db , (err, data)=>{
       res.send(data)
    })
 
+
+   
+
+
 })
 
+
+router.get("/api/movies/:id" , (req, res )=>{
+   movieDb.findById(req.params.id, (err, data)=>{
+      res.send(data)
+   })
+})
+
+router.delete("/api/movies/:id" , (req , res)=>{
+   
+   movieDb.findByIdAndDelete(req.params.id, (err, data)=>{
+      res.send(data)
+   })
+   
+
+})
+
+router.get("/api/movies/top10" , (req , res)=>{
+   const promise = movieDb.find({}).sort({imdb_score: -1}).limit(5)
+   promise.then(data=>{
+      res.send("top 5")
+   }).catch(error=>{
+      console.log(error);
+   })
+
+
+
+
+
+
+
+
+
+
+
+
+   +.
+   ..
+
+})
 
 module.exports = router
