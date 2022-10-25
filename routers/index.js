@@ -21,10 +21,10 @@ router.post("/api/movies" , (req, res )=>{
    db.save()
 })
 
-router.post("/api/movies/:id" , (req, res )=>{
-   movieDb.findById{req.params.id, (err, data)=>{
+router.get("/api/movies/:id" , (req, res )=>{
+   movieDb.findById(req.params.id, (err, data)=>{
       res.send(data)
-   }}
+   })
 })
 router.put("/api/movies/:id" , (req , res)=>{
 const {title, category, country, director, imdb_score,   year}=req.body
